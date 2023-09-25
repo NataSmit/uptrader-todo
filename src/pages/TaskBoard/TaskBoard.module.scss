@@ -1,0 +1,10 @@
+.taskboard {
+  display: flex;
+  
+
+  .section {
+    width: 400px;
+    min-height: 400px;
+    border: 1px solid green;
+  }
+}
