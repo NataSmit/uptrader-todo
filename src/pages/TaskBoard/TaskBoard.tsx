@@ -8,6 +8,7 @@ import { Task, Project } from "../../types/types";
 import TaskItem from "../../components/TaskItem/TaskItem";
 import DropContainer from "../../components/DropContainer/DropContainer";
 import { Status } from "../../types/types";
+import Button from "../../components/Button/Button";
 
 export default function TaskBoard() {
   const [isTaskFormOpen, setTaskFormOpen] = useState(false);
@@ -40,86 +41,67 @@ export default function TaskBoard() {
   }
 
   function handleDrop(taskId: number, status: Status) {
-    console.log('handleDrop working')
-    console.log('taskId', taskId)
-    const draggingTask = tasks.find((task) => task.id === taskId)
-    console.log('draggingTask', draggingTask)
+    console.log("handleDrop working");
+    console.log("taskId", taskId);
+    console.log("tasks", tasks);
+    const draggingTask = tasks.find((task) => task.id === taskId);
+    console.log("draggingTask", draggingTask);
     if (draggingTask) {
-      draggingTask.status = status
+      draggingTask.status = status;
     }
-    setTasks(prevState => {
+    setTasks((prevState) => {
       if (draggingTask) {
-        const newTasks = prevState.filter((task) => task.id !== taskId)
-        newTasks.push(draggingTask)
-        return [...newTasks]
+        const newTasks = prevState.filter((task) => task.id !== taskId);
+        newTasks.push(draggingTask);
+        return [...newTasks];
       }
-      return prevState
-    })
+      return prevState;
+    });
   }
 
   return (
-    <div>
-      <button onClick={openTaskForm}>Create new task</button>
-      <div className={styles.taskboard}>
-        {statuses.map((status) => (
-          <DropContainer key={status.name} handleDrop={handleDrop} status={status.status}>
-            {status.name}
-            {tasks &&
-              tasks.map(
-                (task) =>
-                  task.status === status.status && (
-                    <TaskItem task={task} key={task.id} />
-                  )
-              )}
-          </DropContainer>
-        ))}
-        {/* <div className={styles.section} ref={drop}>
-          Queue
-          {tasks &&
-            tasks.map(
-              (task) =>
-                task.status === "Not started" && (
-                  <TaskItem task={task}/>
-                )
-            )}
+    <div className={styles.taskBoard}>
+      <div className={styles.container}>
+        <div className={styles.buttonContainer}>
+          <Button text={"Create new task"} clickHandler={openTaskForm} />
         </div>
-        <div className={styles.section} ref={drop}>
-          Development
-          {tasks &&
-            tasks.map(
-              (task) =>
-                task.status === "In progress" && (
-                  <TaskItem task={task}/>
-                )
-            )}
+        <div className={styles.box}>
+          {statuses.map((status) => (
+            <DropContainer
+              key={status.name}
+              handleDrop={handleDrop}
+              status={status.status}
+              name={status.name}
+            >
+              {tasks &&
+                tasks.map(
+                  (task) =>
+                    task.status === status.status && (
+                      <TaskItem task={task} key={task.id} />
+                    )
+                )}
+            </DropContainer>
+          ))}
         </div>
-        <div className={styles.section} ref={drop}>
-          Done
-          {tasks &&
-            tasks.map(
-              (task) =>
-                task.status === "Done" && <TaskItem task={task}/>
-            )}
-        </div> */}
+        <CreateTaskForm
+          isTaskFormOpen={isTaskFormOpen}
+          closeTaskForm={closeTaskForm}
+          description={description}
+          priority={priority}
+          title={title}
+          status={status}
+          dueDate={dueDate}
+          handleTitleChange={handleTitleChange}
+          handleDescriptionChange={handleDescriptionChange}
+          handlePriorityChange={handlePriorityChange}
+          handleStatusChange={handleStatusChange}
+          handleDueDateChange={handleDueDateChange}
+          handleTaskSubmit={handleTaskSubmit}
+          setTasks={setTasks}
+          newTask={newTask}
+          tasks={tasks}
+        />
       </div>
-      <CreateTaskForm
-        isTaskFormOpen={isTaskFormOpen}
-        closeTaskForm={closeTaskForm}
-        description={description}
-        priority={priority}
-        title={title}
-        status={status}
-        dueDate={dueDate}
-        handleTitleChange={handleTitleChange}
-        handleDescriptionChange={handleDescriptionChange}
-        handlePriorityChange={handlePriorityChange}
-        handleStatusChange={handleStatusChange}
-        handleDueDateChange={handleDueDateChange}
-        handleTaskSubmit={handleTaskSubmit}
-        setTasks={setTasks}
-        newTask={newTask}
-        tasks={tasks}
-      />
     </div>
   );
 }

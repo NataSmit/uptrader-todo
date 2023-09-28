@@ -1,0 +1,30 @@
+@import '../../vars.scss';
+
+.header {
+  background-color: $bg-main;
+  position: relative;
+  z-index: 2;
+
+  .container {
+    max-width: $container-mxWidth;
+    margin: 0 auto;
+    padding: 15px 10px;
+  }
+
+  .logo {
+    font-size: 23px;
+    font-weight: 700;
+    margin: 0;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.7; 
+    }
+  }
+
+  .link {
+    text-decoration: none;
+    color: inherit;
+  }
+}

@@ -1,5 +1,31 @@
-.taskboard {
-  display: flex;
-  
+@import '../../vars.scss';
 
+
+
+.taskBoard {
+  background-image: url('../../images/bg-board.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+
+  .container {
+    max-width: $container-mxWidth;
+    margin: 0 auto;
+    padding: $container-padding;
+  }
+
+  .box {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 30px;
+  }
 }

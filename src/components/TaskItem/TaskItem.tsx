@@ -20,8 +20,9 @@ export default function TaskItem({task}: Props) {
   return (
     <div className={styles.task} ref={drag}>
       <div className={styles.container}>
-        <p>{task.title}</p>
-        <p>{task.priority}</p>
+        <p className={styles.title}>{task.title}</p>
+        <p>Prio: {task.priority}</p>
+        <p>Status: {task.status}</p>
       </div>
     </div>
   )

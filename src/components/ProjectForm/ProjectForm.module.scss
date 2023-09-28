@@ -1,0 +1,15 @@
+@import '../../vars.scss';
+
+.projectForm {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+
+  .input {
+    margin-bottom: 40px;
+    padding: 10px;
+    border-radius: 3px;
+    border: 1px solid $bg-main;
+  }
+}

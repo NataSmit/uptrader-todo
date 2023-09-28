@@ -1,0 +1,22 @@
+@import '../../vars.scss';
+
+.card {
+  width: 300px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 11px 13px 10px 0px rgba(28, 31, 34, 0.2);
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+    color: $text-color;
+  }
+}

@@ -1,12 +1,42 @@
+@import '../../vars.scss';
+
 .taskForm {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: 400px;
+  margin: 0 auto;
 
   .label {
     display: flex;
-    width: 200px;
+    width: 250px;
     justify-content: space-between;
+    margin-bottom: 10px;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+  }
+
+  .input {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 3px;
+    border: 1px solid $bg-main;
+  }
+
+  .button {
+    border: none;
+    background-color: $bg-main;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
   }
 
 }

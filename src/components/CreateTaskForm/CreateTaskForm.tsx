@@ -2,6 +2,7 @@ import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, use
 import styles from "./CreateTaskForm.module.scss";
 import Modal from "../Modal/Modal";
 import { Task, Priority, Status } from "../../types/types";
+import FormButton from "../FormButton/FormButton";
 
 interface Props {
   isTaskFormOpen: boolean;
@@ -49,7 +50,8 @@ export default function CreateTaskForm({
 
   useEffect(() => {
     if (tasks && newTask) {
-      setTasks([...tasks, newTask])
+      //setTasks([...tasks, newTask])
+      setTasks((prev) => [...prev, newTask])
     }
   }, [newTask])
 
@@ -59,12 +61,14 @@ export default function CreateTaskForm({
     <Modal isOpen={isTaskFormOpen}>
       <form className={styles.taskForm} onSubmit={handleFormSubmit}>
         <input
+          className={styles.input}
           value={title}
           onChange={handleTitleChange}
           type="text"
           placeholder="Title"
         />
         <textarea
+          className={styles.input}
           value={description}
           onChange={handleDescriptionChange}
           placeholder="Description"
@@ -89,10 +93,8 @@ export default function CreateTaskForm({
           Due date
           <input value={dueDate} onChange={handleDueDateChange} type="date" />
         </label>
-        <button>Save</button>
-        <button onClick={closeTaskForm} type="button">
-          Close window
-        </button>
+        <FormButton text={'Save'}/>
+        <FormButton text={'Close window'} clickHandler={closeTaskForm} type="button"/>
       </form>
     </Modal>
   );

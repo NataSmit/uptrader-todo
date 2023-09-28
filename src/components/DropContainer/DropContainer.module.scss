@@ -1,6 +1,23 @@
-.container {
-  width: 400px;
+.dropBox {
+  width: 320px;
   min-height: 400px;
-  border: 1px solid green;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 11px 13px 10px 0px rgba(28, 31, 34, 0.2);
+
+  .container {
+    padding: 20px;
+
+  }
+
+  .name {
+    font-size: 20px;
+    margin: 0 0 15px 0;
+  }
+
+  .flexbox {
+    display: flex;
+    flex-direction: column;
+  }
 
 }
