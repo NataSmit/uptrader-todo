@@ -1,12 +1,25 @@
-import React from 'react'
-import styles from './Modal.module.scss'
+import React, { ReactElement } from "react";
+import "./Modal.css";
+import classNames from "classnames";
 
-export default function Modal() {
+
+interface Props {
+  children: ReactElement,
+  isOpen: boolean
+}
+
+export default function Modal({children, isOpen}: Props) {
+
+  const modalClass = classNames({
+    modal: true,
+    modal_opened: isOpen
+  })
+  
   return (
-    <div className={styles.modal}>
-      <div className={styles.container}>
-        
+    <div className={modalClass}>
+      <div className='container'>
+        {children}
       </div>
     </div>
-  )
+  );
 }

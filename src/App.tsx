@@ -8,7 +8,6 @@ import Modal from './components/Modal/Modal';
 function App() {
   return (
     <div className="App">
-      <Modal/>
       <Routes>
         <Route path='/' element={<Main />} />
         <Route path='/taskboard/:id' element={<TaskBoard />} />

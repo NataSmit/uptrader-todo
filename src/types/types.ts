@@ -1,9 +1,5 @@
-export type Project = {
-  id: number,
-  name: string
-}
-
 export type Priority = 'Low'| 'High' | 'Normal'
+export type Status = 'Not started' | 'In progress' | 'Done'
 
 export type Task = {
   id: number,
@@ -12,7 +8,18 @@ export type Task = {
   description: string,
   creationDate: string,
   workingTime: string,
-  completionDate: string,
+  dueDate: string,
   priority: Priority,
-  status: string
+  status: Status
+}
+
+export type Project = {
+  id: number,
+  name: string,
+  tasks: Task[]
+}
+
+export type StatusObject = {
+  status: Status,
+  name: string
 }

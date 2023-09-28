@@ -1,0 +1,12 @@
+.taskForm {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+
+  .label {
+    display: flex;
+    width: 200px;
+    justify-content: space-between;
+  }
+
+}
