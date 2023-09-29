@@ -18,7 +18,7 @@ interface Props {
   handleStatusChange: (e: ChangeEvent<HTMLSelectElement>) => void,
   handleDueDateChange: (e: ChangeEvent<HTMLInputElement>) => void,
   handleTaskSubmit: (tasksLength: number) => void,
-  setTasks: Dispatch<SetStateAction<Task[] >>,
+  setTasks: Dispatch<SetStateAction<Task[] | undefined>>,
   newTask: Task | undefined,
   tasks: Task[] | undefined
 }
@@ -50,8 +50,8 @@ export default function CreateTaskForm({
 
   useEffect(() => {
     if (tasks && newTask) {
-      //setTasks([...tasks, newTask])
-      setTasks((prev) => [...prev, newTask])
+      setTasks([...tasks, newTask])
+      //setTasks((prev) => [...prev, newTask])
     }
   }, [newTask])
 

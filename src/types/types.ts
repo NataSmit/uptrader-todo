@@ -23,3 +23,10 @@ export type StatusObject = {
   status: Status,
   name: string
 }
+
+
+export type LSHistory = {
+  [key: number]: Project;
+};
+
+//{id: {id: 1, name: 'test', tasks: []}}

@@ -1,5 +1,6 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { Status, Priority, Task } from '../types/types'
+import { saveTaskToLS } from '../utils/utils'
 
 export const useTaskForm = () => {
   const [title, setTitle] = useState('')
@@ -8,6 +9,7 @@ export const useTaskForm = () => {
   const [status, setStatus] = useState<Status>('Not started')
   const [dueDate, setDueDate] = useState('')
   const [newTask, setNewTask] = useState<Task>()
+
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value)
@@ -39,7 +41,7 @@ export const useTaskForm = () => {
 
   function handleTaskSubmit(tasksLength: number) {
     setNewTask({
-      id: Date.now(),
+      id: Number((Math.random() * 100).toFixed(0)),
       number: tasksLength + 1,
       title,
       description,

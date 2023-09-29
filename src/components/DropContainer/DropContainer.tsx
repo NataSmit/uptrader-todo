@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./DropContainer.module.scss";
 import { useDrop } from "react-dnd";
-import { Status } from "../../types/types";
+import { Status, Task } from "../../types/types";
 
 interface Props {
   children: React.ReactNode;
   handleDrop: (taskId: number, status: Status) => void;
   status: Status;
   name: string;
+  
 }
 
 export default function DropContainer({
@@ -15,6 +16,7 @@ export default function DropContainer({
   status,
   handleDrop,
   name,
+  
 }: Props) {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "task",

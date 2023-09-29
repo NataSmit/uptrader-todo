@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./TaskBoard.module.scss";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import { useParams } from "react-router-dom";
@@ -9,12 +9,12 @@ import TaskItem from "../../components/TaskItem/TaskItem";
 import DropContainer from "../../components/DropContainer/DropContainer";
 import { Status } from "../../types/types";
 import Button from "../../components/Button/Button";
+import { saveTaskToLS, getTasksFromLS, saveDataToLSAfterDrop } from "../../utils/utils";
 
 export default function TaskBoard() {
   const [isTaskFormOpen, setTaskFormOpen] = useState(false);
   const { id } = useParams();
-  const project = projects.find((project) => project.id === Number(id));
-  const [tasks, setTasks] = useState<Task[]>(project?.tasks || []);
+  const [tasks, setTasks] = useState<Task[]>();
   const {
     title,
     description,
@@ -32,6 +32,16 @@ export default function TaskBoard() {
 
   console.log("newTask", newTask);
 
+  useEffect(() => {
+    if (newTask) {
+      saveTaskToLS(Number(id), newTask);
+    }
+  }, [newTask]);
+
+  useEffect(() => {
+    setTasks(getTasksFromLS(Number(id)));
+  }, [id, newTask]);
+
   function openTaskForm() {
     setTaskFormOpen(true);
   }
@@ -39,18 +49,24 @@ export default function TaskBoard() {
   function closeTaskForm() {
     setTaskFormOpen(false);
   }
+  console.log("tasks taslboard", tasks);
 
   function handleDrop(taskId: number, status: Status) {
     console.log("handleDrop working");
     console.log("taskId", taskId);
     console.log("tasks", tasks);
-    const draggingTask = tasks.find((task) => task.id === taskId);
+    const tasksFromLS = getTasksFromLS(Number(id))
+    console.log('tasksFromLS', tasksFromLS)
+    const draggingTask = tasksFromLS.find((task) => task.id === taskId);
     console.log("draggingTask", draggingTask);
+
     if (draggingTask) {
       draggingTask.status = status;
+      saveDataToLSAfterDrop(tasksFromLS, taskId, draggingTask, Number(id) )
     }
+    console.log("draggingTask", draggingTask);
     setTasks((prevState) => {
-      if (draggingTask) {
+      if (draggingTask && prevState) {
         const newTasks = prevState.filter((task) => task.id !== taskId);
         newTasks.push(draggingTask);
         return [...newTasks];
