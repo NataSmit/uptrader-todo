@@ -9,38 +9,38 @@ import TaskItem from "../../components/TaskItem/TaskItem";
 import DropContainer from "../../components/DropContainer/DropContainer";
 import { Status } from "../../types/types";
 import Button from "../../components/Button/Button";
-import { saveTaskToLS, getTasksFromLS, saveDataToLSAfterDrop } from "../../utils/utils";
+import {
+  saveTaskToLS,
+  getTasksFromLS,
+  saveDataToLSAfterDrop,
+  saveChangedTaskToLS,
+} from "../../utils/utils";
 
 export default function TaskBoard() {
   const [isTaskFormOpen, setTaskFormOpen] = useState(false);
   const { id } = useParams();
   const [tasks, setTasks] = useState<Task[]>();
-  const {
-    title,
-    description,
-    priority,
-    status,
-    dueDate,
-    newTask,
-    handleTitleChange,
-    handleDescriptionChange,
-    handlePriorityChange,
-    handleStatusChange,
-    handleDueDateChange,
-    handleTaskSubmit,
-  } = useTaskForm();
+  const [createdTask, setCreatedTask] = useState<Task>();
+  const [changedTask, setChangedTask] = useState<Task>();
 
-  console.log("newTask", newTask);
+  console.log("createdTask taskBoard", createdTask);
+  console.log("changedTask taskBoard", changedTask);
 
   useEffect(() => {
-    if (newTask) {
-      saveTaskToLS(Number(id), newTask);
+    if (createdTask) {
+      saveTaskToLS(Number(id), createdTask);
     }
-  }, [newTask]);
+  }, [createdTask]);
+
+  useEffect(() => {
+    if (changedTask) {
+      saveChangedTaskToLS(Number(id), changedTask);
+    }
+  }, [changedTask]);
 
   useEffect(() => {
     setTasks(getTasksFromLS(Number(id)));
-  }, [id, newTask]);
+  }, [id, createdTask, changedTask]);
 
   function openTaskForm() {
     setTaskFormOpen(true);
@@ -52,19 +52,15 @@ export default function TaskBoard() {
   console.log("tasks taslboard", tasks);
 
   function handleDrop(taskId: number, status: Status) {
-    console.log("handleDrop working");
-    console.log("taskId", taskId);
-    console.log("tasks", tasks);
-    const tasksFromLS = getTasksFromLS(Number(id))
-    console.log('tasksFromLS', tasksFromLS)
+    const tasksFromLS = getTasksFromLS(Number(id));
+
     const draggingTask = tasksFromLS.find((task) => task.id === taskId);
-    console.log("draggingTask", draggingTask);
 
     if (draggingTask) {
       draggingTask.status = status;
-      saveDataToLSAfterDrop(tasksFromLS, taskId, draggingTask, Number(id) )
+      saveDataToLSAfterDrop(tasksFromLS, taskId, draggingTask, Number(id));
     }
-    console.log("draggingTask", draggingTask);
+
     setTasks((prevState) => {
       if (draggingTask && prevState) {
         const newTasks = prevState.filter((task) => task.id !== taskId);
@@ -73,6 +69,10 @@ export default function TaskBoard() {
       }
       return prevState;
     });
+  }
+
+  function modifyTask(taskId: number) {
+    const changedTask = tasks?.find((task) => task.id === taskId);
   }
 
   return (
@@ -93,7 +93,12 @@ export default function TaskBoard() {
                 tasks.map(
                   (task) =>
                     task.status === status.status && (
-                      <TaskItem task={task} key={task.id} />
+                      <TaskItem
+                        task={task}
+                        key={task.id}
+                        tasksLength={tasks?.length}
+                        setChangedTask={setChangedTask}
+                      />
                     )
                 )}
             </DropContainer>
@@ -102,20 +107,8 @@ export default function TaskBoard() {
         <CreateTaskForm
           isTaskFormOpen={isTaskFormOpen}
           closeTaskForm={closeTaskForm}
-          description={description}
-          priority={priority}
-          title={title}
-          status={status}
-          dueDate={dueDate}
-          handleTitleChange={handleTitleChange}
-          handleDescriptionChange={handleDescriptionChange}
-          handlePriorityChange={handlePriorityChange}
-          handleStatusChange={handleStatusChange}
-          handleDueDateChange={handleDueDateChange}
-          handleTaskSubmit={handleTaskSubmit}
-          setTasks={setTasks}
-          newTask={newTask}
-          tasks={tasks}
+          tasksLength={tasks?.length}
+          setCreatedTask={setCreatedTask}
         />
       </div>
     </div>

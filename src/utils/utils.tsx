@@ -22,13 +22,19 @@ export function saveTaskToLS(projectId: number, task: Task) {
   localStorage.setItem('projectHistory', JSON.stringify(projectHistory))
 }
 
-export function getTasksFromLS(projectId: number) {
-  console.log('getTasksFromLS working!!!!')
+export function saveChangedTaskToLS(projectId: number, task: Task) {
   const projectHistory = getProjectHistoryFromLS()
-  console.log('projectHistory', projectHistory)
   const project = projectHistory[projectId]
-  console.log('project', project)
-  console.log('project.tasks', project.tasks)
+  const filtered = project.tasks.filter(taskObj => taskObj.id !== task.id)
+  filtered.push(task)
+  project.tasks = filtered
+  projectHistory[projectId] = project
+  localStorage.setItem('projectHistory', JSON.stringify(projectHistory))
+}
+
+export function getTasksFromLS(projectId: number) {
+  const projectHistory = getProjectHistoryFromLS()
+  const project = projectHistory[projectId]
   if (project) {
     return project.tasks
   }

@@ -1,0 +1,12 @@
+.taskDetails {
+  overflow: auto;
+
+  .info {
+    color: green;
+
+    span {
+      font-weight: 700;
+      color: black
+    }
+  }
+}

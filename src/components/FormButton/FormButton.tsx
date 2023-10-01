@@ -8,6 +8,7 @@ interface Props {
 } 
 
 export default function FormButton({text, clickHandler, type}: Props) {
+  
   return (
     <button className={styles.formButton} onClick={clickHandler} type={type}>{text}</button>
   )

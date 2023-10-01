@@ -47,6 +47,7 @@ export default function ProjectForm({
           onChange={handleProjectNameChange}
           className={styles.input}
           placeholder="Project name..."
+          required
         />
         <FormButton text={"Save"} />
         <FormButton

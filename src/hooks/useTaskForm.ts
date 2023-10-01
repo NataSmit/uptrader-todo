@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { Status, Priority, Task } from '../types/types'
 import { saveTaskToLS } from '../utils/utils'
 
-export const useTaskForm = () => {
+export const useTaskForm = (tasksLength: number) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [priority, setPriority] = useState<Priority>('Normal')
@@ -66,6 +66,11 @@ export const useTaskForm = () => {
     handlePriorityChange,
     handleStatusChange,
     handleDueDateChange,
-    handleTaskSubmit
+    handleTaskSubmit,
+    setTitle,
+    setDescription,
+    setPriority,
+    setStatus,
+    setDueDate
   }
 }
