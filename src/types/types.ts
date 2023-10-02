@@ -7,10 +7,10 @@ export type Task = {
   title: string,
   description: string,
   creationDate: string,
-  workingTime: string,
   dueDate: string,
   priority: Priority,
-  status: Status
+  status: Status,
+  startOfWork?: Date
 }
 
 export type Project = {

@@ -35,7 +35,7 @@ export default function Main() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <div className={styles.sidebar}>
+        <div className={styles.buttonContainer}>
           <Button
             text={"Create project"}
             clickHandler={openProjectForm}

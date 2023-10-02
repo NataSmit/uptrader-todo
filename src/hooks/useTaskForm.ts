@@ -1,6 +1,6 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react"
+import { ChangeEvent, useState } from "react"
 import { Status, Priority, Task } from '../types/types'
-import { saveTaskToLS } from '../utils/utils'
+
 
 export const useTaskForm = (tasksLength: number) => {
   const [title, setTitle] = useState('')
@@ -45,11 +45,10 @@ export const useTaskForm = (tasksLength: number) => {
       number: tasksLength + 1,
       title,
       description,
-      creationDate: String(Date.now()),
+      creationDate: String(new Date()),
       dueDate,
       priority,
       status,
-      workingTime: '0'
     })
     clearInputs()
   }

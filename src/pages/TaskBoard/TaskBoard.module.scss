@@ -1,9 +1,7 @@
 @import '../../vars.scss';
 
-
-
 .taskBoard {
-  background-image: url('../../images/bg-board.jpg');
+  background-image: url('../../images/bg-board.JPG');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -20,6 +18,7 @@
   .box {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
   }
 
   .buttonContainer {
@@ -27,5 +26,10 @@
     justify-content: center;
     align-items: center;
     padding: 10px 0 30px;
+  }
+
+  .searchBox {
+    padding-bottom: 40px;
+    text-align: center;
   }
 }

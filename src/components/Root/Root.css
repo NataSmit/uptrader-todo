@@ -1,7 +1,7 @@
 .root {
   font-family: "Kumbh Sans", "Arial", "sans-serif", "Helvetica";
   font-weight: 400;
-  min-width: 600px;
+  min-width: 320px;
   max-width: 1380px;
   margin: 0 auto;
   box-sizing: border-box;
