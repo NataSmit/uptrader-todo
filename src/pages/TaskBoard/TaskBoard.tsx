@@ -15,6 +15,8 @@ import {
   saveChangedTaskToLS,
 } from "../../utils/utils";
 import SearchForm from "../../components/SearchForm/SearchForm";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 export default function TaskBoard() {
   const [isTaskFormOpen, setTaskFormOpen] = useState(false);
@@ -24,7 +26,6 @@ export default function TaskBoard() {
   const [changedTask, setChangedTask] = useState<Task>();
   const [isFiltered, setFiltered] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>();
-  console.log("tasks", tasks);
 
   useEffect(() => {
     if (createdTask) {
@@ -58,7 +59,6 @@ export default function TaskBoard() {
     if (draggingTask) {
       draggingTask.status = status;
       draggingTask.startOfWork = new Date();
-      console.log("draggingTask", draggingTask);
       saveDataToLSAfterDrop(tasksFromLS, taskId, draggingTask, Number(id));
     }
 
@@ -86,7 +86,7 @@ export default function TaskBoard() {
     if (number) {
       arrAfterSearch = arrAfterSearch?.filter((task) => task.number === number);
     }
-    console.log("filteredTasks", arrAfterSearch);
+    
     setFilteredTasks(arrAfterSearch);
   }
 
@@ -99,6 +99,7 @@ export default function TaskBoard() {
         <div className={styles.searchBox}>
           <SearchForm filterTasks={filterTasks} setFiltered={setFiltered} />
         </div>
+
         <div className={styles.box}>
           {statuses.map((status) => (
             <DropContainer

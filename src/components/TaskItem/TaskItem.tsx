@@ -9,7 +9,7 @@ import CreateTaskForm from "../CreateTaskForm/CreateTaskForm";
 interface Props {
   task: Task;
   tasksLength: number;
-  setChangedTask: (newTask: Task)=> void,
+  setChangedTask: (newTask: Task) => void;
 }
 
 export default function TaskItem({ task, tasksLength, setChangedTask }: Props) {
@@ -17,12 +17,10 @@ export default function TaskItem({ task, tasksLength, setChangedTask }: Props) {
   const [isModifyTaskModalOpen, setModifyTaskModalOpen] = useState(false);
 
   function closeTaskModal() {
-
     setTaskModalOpen(false);
   }
 
   function closeModifyTaskModal() {
-
     setModifyTaskModalOpen(false);
   }
 
@@ -34,7 +32,6 @@ export default function TaskItem({ task, tasksLength, setChangedTask }: Props) {
     setModifyTaskModalOpen(true);
   }
 
-
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "task",
     item: { id: task.id },
@@ -43,18 +40,20 @@ export default function TaskItem({ task, tasksLength, setChangedTask }: Props) {
     }),
   }));
 
-
   return (
     <div className={styles.task} ref={drag}>
       <button className={styles.modifyBtn} onClick={handleTaskModifying}>
         <img src={Pen} alt="Modify" />
       </button>
-      <button onClick={openTaskModal} className={styles.more}>...</button>
+      <button onClick={openTaskModal} className={styles.more}>
+        ...
+      </button>
       <div className={styles.container}>
         <div className={styles.title}>{task.title}</div>
         <div>Prio: {task.priority}</div>
         <div>Due date: {task.dueDate}</div>
       </div>
+
       <TaskDetailsModal
         task={task}
         isTaskModalOpen={isTaskModalOpen}
