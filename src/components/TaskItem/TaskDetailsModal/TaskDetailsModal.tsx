@@ -16,7 +16,6 @@ export default function TaskDetailsModal({
   isTaskModalOpen,
   closeTaskModal,
 }: Props) {
-
   return (
     <Modal isOpen={isTaskModalOpen}>
       <div className={styles.taskDetails}>
@@ -39,7 +38,7 @@ export default function TaskDetailsModal({
           <span>Working time: </span>
           <Moment date={task.startOfWork} durationFromNow />
         </p>
-        
+
         <p className={styles.info}>
           <span>Due date: </span>
           {task.dueDate}

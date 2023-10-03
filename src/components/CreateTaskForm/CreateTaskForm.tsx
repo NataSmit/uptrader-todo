@@ -1,14 +1,7 @@
-import React, {
-  ChangeEvent,
-  Dispatch,
-  FormEvent,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import React, { FormEvent, useEffect } from "react";
 import styles from "./CreateTaskForm.module.scss";
 import Modal from "../Modal/Modal";
-import { Task, Priority, Status } from "../../types/types";
+import { Task } from "../../types/types";
 import FormButton from "../FormButton/FormButton";
 import { useTaskForm } from "../../hooks/useTaskForm";
 
@@ -78,12 +71,6 @@ export default function CreateTaskForm({
     }
   }, [newTask]);
 
-  // useEffect(() => {
-  //   if (newTask && setChangedTask) {
-  //     setChangedTask(newTask)
-  //   }
-  // }, [newTask])
-
   useEffect(() => {
     setTitle(task?.title || "");
     setDescription(task?.description || "");
@@ -127,7 +114,12 @@ export default function CreateTaskForm({
         </label>
         <label className={styles.label}>
           Due date
-          <input value={dueDate} onChange={handleDueDateChange} type="date" required/>
+          <input
+            value={dueDate}
+            onChange={handleDueDateChange}
+            type="date"
+            required
+          />
         </label>
         <FormButton text={isModifyTaskModalOpen ? "Save changes" : "Save"} />
         <FormButton

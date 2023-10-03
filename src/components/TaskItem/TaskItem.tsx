@@ -1,11 +1,10 @@
-import React, { useState, MouseEvent } from "react";
+import React, { useState } from "react";
 import { useDrag } from "react-dnd";
 import styles from "./TaskItem.module.scss";
 import { Task } from "../../types/types";
 import Pen from "../../images/pen.svg";
 import TaskDetailsModal from "./TaskDetailsModal/TaskDetailsModal";
 import CreateTaskForm from "../CreateTaskForm/CreateTaskForm";
-import { useTaskForm } from "../../hooks/useTaskForm";
 
 interface Props {
   task: Task;

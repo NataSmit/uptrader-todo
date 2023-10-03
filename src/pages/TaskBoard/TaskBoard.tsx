@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./TaskBoard.module.scss";
 import CreateTaskForm from "../../components/CreateTaskForm/CreateTaskForm";
 import { useParams } from "react-router-dom";
-import { projects, statuses } from "../../data/data";
-import { useTaskForm } from "../../hooks/useTaskForm";
-import { Task, Project } from "../../types/types";
+import { statuses } from "../../data/data";
+import { Task } from "../../types/types";
 import TaskItem from "../../components/TaskItem/TaskItem";
 import DropContainer from "../../components/DropContainer/DropContainer";
 import { Status } from "../../types/types";
@@ -15,7 +14,7 @@ import {
   saveDataToLSAfterDrop,
   saveChangedTaskToLS,
 } from "../../utils/utils";
-import SearchForm from '../../components/SearchForm/SearchForm'
+import SearchForm from "../../components/SearchForm/SearchForm";
 
 export default function TaskBoard() {
   const [isTaskFormOpen, setTaskFormOpen] = useState(false);
@@ -23,9 +22,9 @@ export default function TaskBoard() {
   const [tasks, setTasks] = useState<Task[]>();
   const [createdTask, setCreatedTask] = useState<Task>();
   const [changedTask, setChangedTask] = useState<Task>();
-  const [isFiltered, setFiltered] = useState(false)
+  const [isFiltered, setFiltered] = useState(false);
   const [filteredTasks, setFilteredTasks] = useState<Task[]>();
- console.log('tasks', tasks)
+  console.log("tasks", tasks);
 
   useEffect(() => {
     if (createdTask) {
@@ -57,10 +56,9 @@ export default function TaskBoard() {
     const draggingTask = tasksFromLS.find((task) => task.id === taskId);
 
     if (draggingTask) {
-      
       draggingTask.status = status;
-      draggingTask.startOfWork = new Date()
-      console.log('draggingTask', draggingTask)
+      draggingTask.startOfWork = new Date();
+      console.log("draggingTask", draggingTask);
       saveDataToLSAfterDrop(tasksFromLS, taskId, draggingTask, Number(id));
     }
 
@@ -75,19 +73,21 @@ export default function TaskBoard() {
   }
 
   function filterTasks(title: string, number: number) {
-    let arrAfterSearch
+    let arrAfterSearch;
     if (tasks) {
-      arrAfterSearch = [...tasks]
+      arrAfterSearch = [...tasks];
     }
     if (title) {
-      arrAfterSearch = arrAfterSearch?.filter((task) => task.title.toLowerCase().includes(title.toLowerCase()))
+      arrAfterSearch = arrAfterSearch?.filter((task) =>
+        task.title.toLowerCase().includes(title.toLowerCase())
+      );
     }
-    
+
     if (number) {
-      arrAfterSearch = arrAfterSearch?.filter((task) => task.number === number)
+      arrAfterSearch = arrAfterSearch?.filter((task) => task.number === number);
     }
-    console.log('filteredTasks', arrAfterSearch)
-    setFilteredTasks(arrAfterSearch)
+    console.log("filteredTasks", arrAfterSearch);
+    setFilteredTasks(arrAfterSearch);
   }
 
   return (
@@ -97,7 +97,7 @@ export default function TaskBoard() {
           <Button text={"Create new task"} clickHandler={openTaskForm} />
         </div>
         <div className={styles.searchBox}>
-          <SearchForm filterTasks={filterTasks} setFiltered={setFiltered}/>
+          <SearchForm filterTasks={filterTasks} setFiltered={setFiltered} />
         </div>
         <div className={styles.box}>
           {statuses.map((status) => (
@@ -107,44 +107,31 @@ export default function TaskBoard() {
               status={status.status}
               name={status.name}
             >
-              {isFiltered ? 
-              filteredTasks &&
-              filteredTasks.map(
-                (task) =>
-                  task.status === status.status && (
-                    <TaskItem
-                      task={task}
-                      key={task.id}
-                      tasksLength={filteredTasks?.length}
-                      setChangedTask={setChangedTask}
-                    />
+              {isFiltered
+                ? filteredTasks &&
+                  filteredTasks.map(
+                    (task) =>
+                      task.status === status.status && (
+                        <TaskItem
+                          task={task}
+                          key={task.id}
+                          tasksLength={filteredTasks?.length}
+                          setChangedTask={setChangedTask}
+                        />
+                      )
                   )
-              )
-              :
-              tasks &&
-                tasks.map(
-                  (task) =>
-                    task.status === status.status && (
-                      <TaskItem
-                        task={task}
-                        key={task.id}
-                        tasksLength={tasks?.length}
-                        setChangedTask={setChangedTask}
-                      />
-                    )
-                )}
-              {/* {tasks &&
-                tasks.map(
-                  (task) =>
-                    task.status === status.status && (
-                      <TaskItem
-                        task={task}
-                        key={task.id}
-                        tasksLength={tasks?.length}
-                        setChangedTask={setChangedTask}
-                      />
-                    )
-                )} */}
+                : tasks &&
+                  tasks.map(
+                    (task) =>
+                      task.status === status.status && (
+                        <TaskItem
+                          task={task}
+                          key={task.id}
+                          tasksLength={tasks?.length}
+                          setChangedTask={setChangedTask}
+                        />
+                      )
+                  )}
             </DropContainer>
           ))}
         </div>

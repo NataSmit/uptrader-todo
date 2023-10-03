@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Project } from "../types/types";
 
 export const useProjectForm = () => {
@@ -22,6 +22,6 @@ export const useProjectForm = () => {
     projectName,
     newProject,
     handleProjectNameChange,
-    handleFormSubmit
-  }
-}
+    handleFormSubmit,
+  };
+};

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, FormEvent, useEffect } from "react";
 import Modal from "../Modal/Modal";
 import FormButton from "../FormButton/FormButton";
 import styles from "./ProjectForm.module.scss";
@@ -11,7 +11,7 @@ interface Props {
   projectName: string;
   newProject: Project | undefined;
   handleProjectNameChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  handleFormSubmit: () => void
+  handleFormSubmit: () => void;
 }
 
 export default function ProjectForm({
@@ -20,10 +20,8 @@ export default function ProjectForm({
   projectName,
   newProject,
   handleProjectNameChange,
-  handleFormSubmit
+  handleFormSubmit,
 }: Props) {
-  
-
   useEffect(() => {
     if (newProject) {
       saveProjectToLS(newProject);
@@ -31,13 +29,10 @@ export default function ProjectForm({
   }, [newProject]);
 
   function handleProjectFormSubmit(e: FormEvent) {
-    e.preventDefault()
-    handleFormSubmit()
-    closeProjectForm()
+    e.preventDefault();
+    handleFormSubmit();
+    closeProjectForm();
   }
-
-
-  console.log("newProject", newProject);
 
   return (
     <Modal isOpen={isProjectFormOpen}>

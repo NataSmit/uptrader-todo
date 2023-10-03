@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-//import { projects } from "../../data/data";
 import { Link } from "react-router-dom";
 import styles from "./Main.module.scss";
 import ProjectCard from "../../components/ProjectCard/ProjectCard";
@@ -12,13 +11,9 @@ import { useProjectForm } from "../../hooks/useProjectForm";
 export default function Main() {
   const [isProjectFormOpen, setProjectFormOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>();
-  //const projects = getProjectsFromLS()
-  console.log("projects", projects);
 
   const { projectName, newProject, handleProjectNameChange, handleFormSubmit } =
     useProjectForm();
-
- 
 
   useEffect(() => {
     setProjects(getProjectsFromLS());
